@@ -1,0 +1,174 @@
+PUT /songs
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "stop"
+          ]
+        },
+        "sinhala_long_analyzer": {
+          "type": "custom",
+          "tokenizer": "icu_tokenizer",
+          "filter": [
+            "synonyms",
+            "stop",
+            "sinhala_ngram"
+          ]
+        },
+        "sinhala_short_analyzer": {
+          "type": "custom",
+          "tokenizer": "icu_tokenizer",
+          "filter": [
+            "stop",
+            "sinhala_ngram"
+          ]
+        }
+      },
+      "filter": {
+        "stop": {
+          "type": "stop",
+          "stopwords": [
+            "ගත්කරු",
+            "රචකයා",
+            "ලියන්නා",
+            "ලියන",
+            "රචිත",
+            "ලියපු",
+            "ලියව්‌ව",
+            "රචනා",
+            "රචක",
+            "ලියන්",
+            "ලිවූ",
+            "ගායකයා",
+            "ගයනවා",
+            "ගායනා",
+            "ගායනා",
+            "ගැයු",
+            "ගයන",
+            "කිව්",
+            "කිවු",
+            "සංගීත",
+            "සංගීතවත්",
+            "සංගීතය",
+            "වර්ගය",
+            "වර්‍ගයේ",
+            "වර්ගයේම",
+            "වර්ගයේ",
+            "වැනි",
+            "ඇතුලත්",
+            "ඇතුලු",
+            "විදියේ",
+            "විදිහේ",
+            "හොඳම",
+            "ජනප්‍රිය",
+            "ප්‍රචලිත",
+            "ප්‍රසිද්ධම",
+            "හොදම",
+            "ජනප්‍රියම",
+            "ලස්සනම",
+            "ගීත",
+            "සිංදු",
+            "ගී",
+            "සින්දු"
+          ]
+        },
+        "sinhala_ngram": {
+          "type": "edge_ngram",
+          "min_gram": "4",
+          "max_gram": "18",
+          "side": "front"
+        },
+        "synonyms": {
+          "type": "synonym",
+          "synonyms_path": "synonym.txt"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "singer": {
+        "type": "text",
+        "analyzer": "sinhala_short_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "song": {
+        "type": "text",
+        "analyzer": "sinhala_short_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "album": {
+        "type": "text",
+        "analyzer": "sinhala_short_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "year": {
+        "type": "text"
+      },
+      "composer": {
+        "type": "text",
+        "analyzer": "sinhala_short_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "lyricist": {
+        "type": "text",
+        "analyzer": "sinhala_short_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "lyrics": {
+        "type": "text",
+        "analyzer": "sinhala_long_analyzer"
+      },
+      "metaphor": {
+        "type": "text",
+        "analyzer": "sinhala_long_analyzer"
+      },
+      "meaning": {
+        "type": "text",
+        "analyzer": "sinhala_long_analyzer"
+      },
+      "source domain": {
+        "type": "text",
+        "analyzer": "sinhala_long_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "target domain": {
+        "type": "text",
+        "analyzer": "sinhala_long_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
